@@ -505,6 +505,12 @@ loader.load(
     const model = gltf.scene;
     scene.add(model);
 
+    model.traverse((child) => {
+      if (child.isMesh) {
+        child.material = new THREE.MeshLambertMaterial({ color: 0xffffff});
+      }
+    });
+
     // Compute bounding box to fit camera
     const box = new THREE.Box3().setFromObject(model);
     const center = box.getCenter(new THREE.Vector3());
