@@ -456,7 +456,7 @@ function addMarkerCylinders(box, size) {
           // Strong opacity at base, smooth power-curve fade to fully transparent
           float fade = pow(1.0 - t, 1.8);
           float alpha = (0.22 + 0.1 * uPulse) * fade;
-          gl_FragColor = vec4(1.0, 0.93, 0.2, alpha);
+          gl_FragColor = vec4(0.7176, 0.1255, 0.1804, alpha);
         }
       `,
       transparent: true,
