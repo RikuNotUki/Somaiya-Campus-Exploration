@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>SVV Campus Explorer</title>
+<title>SVU Campus Explorer</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -176,7 +176,7 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
 <body>
 
 <header>
-  <div class="logo-badge">SVV</div>
+  <div class="logo-badge">SVU</div>
   <h1>Campus Explorer</h1>
   <div class="progress-pill" id="progress-pill">0 / 9</div>
 </header>
@@ -308,63 +308,63 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
 // ── SPOTS DATA ──────────────────────────────────────────────────────────────
 const SPOTS = {
   'green-area':{
-    qr:'SVV_STOP_1_GREENAREA',
+    qr:'SVU_STOP_1_GREENAREA',
     title:'Green Area (Near Polytechnic)',
     desc:'A lush open green space near the Polytechnic building where students come to unwind, study outdoors, and connect with nature right in the heart of campus.',
     activity:'Sit quietly for a minute — observe the trees, birds, and sounds around you. Then take a group photo showing everyone in the greenery!',
     funfact:'Right beneath your feet, rainwater harvested on campus is being channelled to recharge the underground water table — you\'re literally sitting on a sustainability project!'
   },
   'butterfly':{
-    qr:'SVV_STOP_2_BUTTERFLY',
+    qr:'SVU_STOP_2_BUTTERFLY',
     title:'Butterfly Garden',
     desc:'A dedicated garden planted with indigenous flowering species to attract butterflies and pollinators — a pocket of biodiversity tucked into the campus.',
     activity:'If you were a butterfly, where in this garden would you choose to rest? Walk to that spot and take your group photo there.',
     funfact:'Every drop of water in this garden comes from treated wastewater — this garden literally runs on what we\'d otherwise throw away!'
   },
   'aurobindo':{
-    qr:'SVV_STOP_3_CANTEEN',
+    qr:'SVU_STOP_3_CANTEEN',
     title:'Aurobindo Canteen',
     desc:'The main student canteen named after Sri Aurobindo. A buzzing social hub where students fuel up between classes — and where sustainability meets your meal.',
     activity:'Head to the north side of the canteen and find the blue tank. What do you think it does? Take a group photo with it!',
     funfact:'Food waste from this canteen is converted into Bio-gas — which will one day power the cooking fires right here. Your leftovers could cook tomorrow\'s lunch!'
   },
   'madhuban':{
-    qr:'SVV_STOP_4_MADHUBAN',
+    qr:'SVU_STOP_4_MADHUBAN',
     title:'Madhuban',
     desc:'A forested grove with a rich collection of indigenous trees. "Madhuban" means a forest of sweetness — a quiet escape that\'s also an open-air classroom.',
     activity:'Who can find the biggest fallen leaf? Spread out, explore, then gather for a group photo with everyone holding their leaf!',
     funfact:'This grove is home to dozens of indigenous plant species that support local birds, insects, and the whole food chain — nature\'s original social network.'
   },
   'chess':{
-    qr:'SVV_STOP_5_CHESS',
+    qr:'SVU_STOP_5_CHESS',
     title:'Giant Chess Board',
     desc:'An oversized outdoor chess board where an ongoing game is always in progress. Anyone can step in, make a move, and walk away — a living game that belongs to the whole campus.',
     activity:'Look at the current board — pick a side and make the next logical move. Then take a dramatic group photo mid-game!',
     funfact:null
   },
   'kutchi':{
-    qr:'SVV_STOP_6_KUTCHI',
+    qr:'SVU_STOP_6_KUTCHI',
     title:'Kutchi Haveli',
     desc:'A beautifully reconstructed traditional Kutchi Haveli — a heritage-style courtyard home from Gujarat. A reminder that architecture can be both art and cultural memory.',
     activity:'Channel your inner Bollywood — recreate a dramatic movie scene inside the Haveli and capture the moment!',
     funfact:null
   },
   'maggie':{
-    qr:'SVV_STOP_7_MAGGIE',
+    qr:'SVU_STOP_7_MAGGIE',
     title:'Maggie House',
     desc:'The beloved campus snack stop where a hot plate of Maggie noodles or a warm chai can fix almost anything. A student institution in its own right.',
     activity:'Strike your best "hungry student" pose with the Maggie House behind you — group photo time! Bonus points if someone\'s actually eating.',
     funfact:null
   },
   'biridl':{
-    qr:'SVV_STOP_8_BIRIDL',
+    qr:'SVU_STOP_8_BIRIDL',
     title:'Bio RIDL',
     desc:'The Biological Research & Innovation Design Lab — where students and researchers work with bio-materials to develop sustainable solutions for real-world problems.',
     activity:'Step inside and look to your right — there\'s a shelf of ongoing experiments using bio-materials. Examine them and take a group photo with your most curious faces!',
     funfact:'Some of the bio-materials being researched here could replace single-use plastics entirely — future packaging and building materials, all from living organisms!'
   },
   'library':{
-    qr:'SVV_STOP_9_LIBRARY',
+    qr:'SVU_STOP_9_LIBRARY',
     title:'Library',
     desc:'The campus library — more than just books. A space for deep focus, research, and discovery. Thousands of ideas waiting on these shelves.',
     activity:'Explore the shelves and find the one book you\'d most want to read. Take a group photo with everyone holding or pointing at their chosen book!',
@@ -907,7 +907,7 @@ document.getElementById('btn-download').onclick = async () => {
     });
     const a = document.createElement('a');
     a.href = c.toDataURL('image/jpeg', 0.92);
-    a.download = 'SVV_Campus_Scrapbook.jpg';
+    a.download = 'SVU_Campus_Scrapbook.jpg';
     a.click();
   } catch(e) { alert('Download failed — take a screenshot instead.'); }
 };
