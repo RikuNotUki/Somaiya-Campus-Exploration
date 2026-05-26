@@ -872,6 +872,10 @@ function updateMarkerThumb(id, url) {
 
 document.getElementById('btn-camera').onclick  = openCamera;
 document.getElementById('cam-close').onclick   = closeCam;
+document.getElementById('btn-start-activity').onclick = () => {
+  document.getElementById('activity-section').style.display = 'block';
+  document.getElementById('btn-start-activity').style.display = 'none';
+};
 document.getElementById('cam-flip').onclick    = () => { facingMode = facingMode==='environment'?'user':'environment'; startCam(); };
 document.getElementById('shutter').onclick     = capturePhoto;
 document.getElementById('btn-keep').onclick    = keepPhoto;
