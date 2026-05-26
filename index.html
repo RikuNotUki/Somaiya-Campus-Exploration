@@ -156,6 +156,12 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
 .btn-keep{background:#fff;color:#000}
 .btn-redo{background:rgba(255,255,255,0.12);color:#fff}
 
+.spot-hero{display:flex;flex-direction:column;align-items:center;padding:24px 0 16px;gap:14px;}
+.spot-circle{width:80px;height:80px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg);}
+.btn-start-activity{width:100%;padding:14px;background:var(--ink);color:var(--paper);border:none;border-radius:4px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:3px 3px 0 rgba(0,0,0,0.25);margin-top:14px;letter-spacing:0.02em;}
+.btn-start-activity:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(0,0,0,0.25)}
+.activity-section{margin-top:4px;}
+
 /* SCRAPBOOK */
 .scrapbook-view{position:fixed;inset:0;z-index:60;background:var(--bg);transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);display:flex;flex-direction:column;overflow:hidden;}
 .scrapbook-view.open{transform:translateY(0)}
@@ -227,16 +233,22 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
       <button class="btn-scan" id="btn-open-scanner">Scan QR Code</button>
     </div>
     <div class="unlocked-content" id="unlocked-content">
-      <div class="sheet-title" id="sheet-title"></div>
-      <div class="spot-desc" id="spot-desc"></div>
-      <div class="info-card">
-        <div class="info-card-label">🎯 Your Challenge</div>
-        <p id="spot-activity"></p>
+      <div class="spot-hero">
+        <div class="spot-circle"></div>
+        <div class="sheet-title" id="sheet-title"></div>
       </div>
+      <div class="spot-desc" id="spot-desc"></div>
       <div class="funfact-card" id="funfact-card" style="display:none">
         <p id="spot-funfact"></p>
       </div>
-      <button class="btn-camera" id="btn-camera">📸 Take Group Photo</button>
+      <button class="btn-start-activity" id="btn-start-activity">Start Activity</button>
+      <div class="activity-section" id="activity-section" style="display:none">
+        <div class="info-card">
+          <div class="info-card-label">Your Challenge</div>
+          <p id="spot-activity"></p>
+        </div>
+        <button class="btn-camera" id="btn-camera">Take Group Photo</button>
+      </div>
     </div>
   </div>
 </div>
@@ -681,7 +693,9 @@ function fillUnlocked(id) {
   if (s.funfact){ ff.style.display=''; document.getElementById('spot-funfact').textContent=s.funfact; }
   else ff.style.display='none';
   document.getElementById('btn-camera').textContent =
-    (visited[id] && visited[id]!=='pending') ? '📸 Retake Photo' : '📸 Take Group Photo';
+    (visited[id] && visited[id]!=='pending') ? 'Retake Photo' : 'Take Group Photo';
+  document.getElementById('activity-section').style.display = 'none';
+  document.getElementById('btn-start-activity').style.display = 'block';
 }
 
 function closeSheet() {
