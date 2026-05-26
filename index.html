@@ -767,6 +767,8 @@ closeScanner();
     setTimeout(() => {
       if (!visited[currentId]) visited[currentId] = 'pending';
       updateProgress();
+      const cylObj = markerCylinders.find(o => o.id === currentId);
+      if (cylObj) cylObj.cyl.material.uniforms.uVisited.value = 1.0;
       document.getElementById('qr-prompt').style.display = 'none';
       document.getElementById('unlocked-content').classList.add('show');
       fillUnlocked(currentId);
@@ -852,8 +854,6 @@ function updateMarkerThumb(id, url) {
   if (!m) return;
   m.classList.add('visited');
   m.querySelector('.marker-q').innerHTML = `<img src="${url}" alt=""/>`;
-  const cylObj = markerCylinders.find(o => o.id === id);
-  if (cylObj) cylObj.cyl.material.uniforms.uVisited.value = 1.0;
 }
 
 document.getElementById('btn-camera').onclick  = openCamera;
