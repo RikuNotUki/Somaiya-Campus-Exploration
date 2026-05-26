@@ -449,6 +449,7 @@ function addMarkerCylinders(box, size) {
         varying float vY;
         uniform float uPulse;
         uniform float uHalfH;
+        uniform float uVisited;
         void main() {
           // Normalise: 0.0 at the very bottom, 1.0 at the very top
           float t = (vY + uHalfH) / (2.0 * uHalfH);
@@ -456,8 +457,6 @@ function addMarkerCylinders(box, size) {
           // Strong opacity at base, smooth power-curve fade to fully transparent
           float fade = pow(1.0 - t, 1.8);
           float alpha = (0.22 + 0.1 * uPulse) * fade;
-          uniform float uVisited;
-          // then change the gl_FragColor line to:
           vec3 col = mix(vec3(0.7176, 0.1255, 0.1804), vec3(0.1529, 0.6824, 0.3765), uVisited);
           gl_FragColor = vec4(col, alpha);
         }
