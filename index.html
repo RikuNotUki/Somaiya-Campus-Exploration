@@ -434,8 +434,9 @@ function addMarkerCylinders(box, size) {
     // uHalfH lets the shader know actual half-height so it can normalize vY to [0,1]
     const mat = new THREE.ShaderMaterial({
       uniforms: {
-        uPulse:  { value: 0.0 },
-        uHalfH:  { value: height / 2.0 },
+        uPulse:   { value: 0.0 },
+        uHalfH:   { value: height / 2.0 },
+        uVisited: { value: 0.0 },
       },
       vertexShader: `
         varying float vY;
@@ -455,7 +456,10 @@ function addMarkerCylinders(box, size) {
           // Strong opacity at base, smooth power-curve fade to fully transparent
           float fade = pow(1.0 - t, 1.8);
           float alpha = (0.22 + 0.1 * uPulse) * fade;
-          gl_FragColor = vec4(0.7176, 0.1255, 0.1804, alpha);
+          uniform float uVisited;
+          // then change the gl_FragColor line to:
+          vec3 col = mix(vec3(0.7176, 0.1255, 0.1804), vec3(0.1529, 0.6824, 0.3765), uVisited);
+          gl_FragColor = vec4(col, alpha);
         }
       `,
       transparent: true,
@@ -470,7 +474,8 @@ function addMarkerCylinders(box, size) {
     cyl.position.set(x, baseY + height / 2, z);
     scene.add(cyl);
 
-    markerCylinders.push({ cyl, phase: i * 0.9 });
+    const spotId = el.dataset.id;
+    markerCylinders.push({ cyl, phase: i * 0.9, id: spotId });
   });
 }
 
@@ -848,6 +853,8 @@ function updateMarkerThumb(id, url) {
   if (!m) return;
   m.classList.add('visited');
   m.querySelector('.marker-q').innerHTML = `<img src="${url}" alt=""/>`;
+  const cylObj = markerCylinders.find(o => o.id === id);
+  if (cylObj) cylObj.cyl.material.uniforms.uVisited.value = 1.0;
 }
 
 document.getElementById('btn-camera').onclick  = openCamera;
