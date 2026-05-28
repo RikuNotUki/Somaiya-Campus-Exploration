@@ -156,7 +156,7 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
 .btn-keep{background:#fff;color:#000}
 .btn-redo{background:rgba(255,255,255,0.12);color:#fff}
 
-.spot-hero{display:flex;flex-direction:column;align-items:center;padding:0 0 16px;gap:14px;}
+.spot-hero{display:flex;flex-direction:column;align-items:center;padding:80px 0 16px;gap:14px;}
 .spot-circle{width:160px;height:160px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg);margin-top:-80px;}
 .btn-start-activity{width:100%;padding:14px;background:var(--ink);color:var(--paper);border:none;border-radius:4px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:3px 3px 0 rgba(0,0,0,0.25);margin-top:14px;letter-spacing:0.02em;}
 .btn-start-activity:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(0,0,0,0.25)}
@@ -231,6 +231,7 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
     <div style="font-size:13px;color:rgba(255,255,255,0.45);position:absolute;bottom:48px;">Tap anywhere to continue</div>
   </div>
 
+<div id="spot-circle-float" style="display:none;position:fixed;left:50%;transform:translateX(-50%);z-index:55;width:160px;height:160px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border);pointer-events:none;"></div>
 <!-- SHEET -->
 <div class="sheet-overlay" id="sheet-overlay"></div>
 <div class="sheet" id="sheet">
@@ -245,7 +246,6 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
     </div>
     <div class="unlocked-content" id="unlocked-content">
       <div class="spot-hero">
-        <div class="spot-circle"></div>
         <div class="sheet-title" id="sheet-title"></div>
       </div>
       <div class="spot-desc" id="spot-desc"></div>
@@ -694,6 +694,11 @@ function openSheet(id) {
 
   document.getElementById('sheet-overlay').classList.add('open');
   document.getElementById('sheet').classList.add('open');
+  const circ = document.getElementById('spot-circle-float');
+  circ.style.display = 'block';
+  // Position it sitting on top of the sheet edge
+  const sheetTop = window.innerHeight * 0.18;
+  circ.style.top = (sheetTop - 80) + 'px';
 }
 
 function fillUnlocked(id) {
@@ -713,6 +718,7 @@ function fillUnlocked(id) {
 function closeSheet() {
   document.getElementById('sheet-overlay').classList.remove('open');
   document.getElementById('sheet').classList.remove('open');
+  document.getElementById('spot-circle-float').style.display = 'none';
 }
 
 document.getElementById('sheet-overlay').onclick = closeSheet;
@@ -799,6 +805,10 @@ function handleScan(val) {
       popup.style.display = 'flex';
       setTimeout(() => { popup.style.transform = 'translateY(0)'; }, 10);
       popup.onclick = () => {
+        const circ = document.getElementById('spot-circle-float');
+        circ.style.display = 'block';
+        const sheetTop = window.innerHeight * 0.18;
+        circ.style.top = (sheetTop - 80) + 'px';
         popup.style.transform = 'translateY(100%)';
         setTimeout(() => { popup.style.display = 'none'; }, 300);
         document.getElementById('qr-prompt').style.display = 'none';
