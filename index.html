@@ -695,10 +695,13 @@ function openSheet(id) {
   document.getElementById('sheet-overlay').classList.add('open');
   document.getElementById('sheet').classList.add('open');
   const circ = document.getElementById('spot-circle-float');
-  circ.style.display = 'block';
-  // Position it sitting on top of the sheet edge
-  const sheetTop = window.innerHeight * 0.18;
-  circ.style.top = (sheetTop - 80) + 'px';
+  if (scanned) {
+    circ.style.display = 'block';
+    const sheetTop = window.innerHeight * 0.18;
+    circ.style.top = (sheetTop - 40) + 'px';
+  } else {
+    circ.style.display = 'none';
+  }
 }
 
 function fillUnlocked(id) {
