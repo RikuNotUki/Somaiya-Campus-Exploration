@@ -221,9 +221,6 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
 </div>
 
 <div id="discovery-popup" style="display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,0.85);flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.32,0.72,0,1);">
-    <div id="disc-img" style="width:160px;height:160px;border-radius:50%;background:#444;overflow:hidden;border:3px solid #fff;">
-      <img id="disc-img-el" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none;"/>
-    </div>
     <div style="text-align:center;color:#fff;">
       <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;opacity:0.6;margin-bottom:8px;">DISCOVERED</div>
       <div id="disc-title" style="font-size:22px;font-weight:800;letter-spacing:-0.02em;"></div>
@@ -231,8 +228,8 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
     <div style="font-size:13px;color:rgba(255,255,255,0.45);position:absolute;bottom:48px;">Tap anywhere to continue</div>
   </div>
 
-<div id="spot-circle-float" style="display:none;position:fixed;left:50%;transform:translateX(-50%);z-index:55;width:160px;height:160px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border);pointer-events:none;"></div>
-<!-- SHEET -->
+<div id="spot-circle-float" style="display:none;position:fixed;left:50%;transform:translateX(-50%);z-index:72;width:160px;height:160px;border-radius:50%;background:#444;overflow:hidden;border:3px solid #fff;pointer-events:none;transition:top 0.3s cubic-bezier(0.32,0.72,0,1);"></div>
+  <!-- SHEET -->
 <div class="sheet-overlay" id="sheet-overlay"></div>
 <div class="sheet" id="sheet">
   <div class="sheet-handle"></div>
@@ -805,13 +802,17 @@ function handleScan(val) {
       document.getElementById('disc-title').textContent = s.title;
       document.getElementById('sheet').classList.remove('open');
       document.getElementById('sheet-overlay').classList.remove('open');
+      const circ = document.getElementById('spot-circle-float');
+      circ.style.transition = 'none';
+      circ.style.top = (window.innerHeight * 0.5 - 80) + 'px';
+      circ.style.display = 'block';
       popup.style.display = 'flex';
       setTimeout(() => { popup.style.transform = 'translateY(0)'; }, 10);
       popup.onclick = () => {
         const circ = document.getElementById('spot-circle-float');
-        circ.style.display = 'block';
+        circ.style.transition = 'top 0.3s cubic-bezier(0.32,0.72,0,1)';
         const sheetTop = window.innerHeight * 0.18;
-        circ.style.top = (sheetTop - 80) + 'px';
+        circ.style.top = (sheetTop - 40) + 'px';
         popup.style.transform = 'translateY(100%)';
         setTimeout(() => { popup.style.display = 'none'; }, 300);
         document.getElementById('qr-prompt').style.display = 'none';
