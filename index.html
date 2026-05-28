@@ -224,6 +224,15 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
 <div class="sheet-overlay" id="sheet-overlay"></div>
 <div class="sheet" id="sheet">
   <div class="sheet-handle"></div>
+  <div id="discovery-popup" style="display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,0.85);flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px;">    <div id="disc-img" style="width:160px;height:160px;border-radius:50%;background:#444;overflow:hidden;border:3px solid #fff;">
+      <img id="disc-img-el" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none;"/>
+    </div>
+    <div style="text-align:center;color:#fff;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;opacity:0.6;margin-bottom:8px;">DISCOVERED</div>
+      <div id="disc-title" style="font-size:22px;font-weight:800;letter-spacing:-0.02em;"></div>
+    </div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.45);position:absolute;bottom:48px;">Tap anywhere to continue</div>
+  </div>
   <div class="sheet-inner">
     <button class="btn-close-sheet" id="sheet-close">✕</button>
     <div id="qr-prompt" class="qr-prompt">
@@ -241,6 +250,7 @@ header h1{font-size:15px;font-weight:700;flex:1;letter-spacing:-0.01em}
       <div class="funfact-card" id="funfact-card" style="display:none">
         <p id="spot-funfact"></p>
       </div>
+      <button id="btn-back-info" style="display:none;background:transparent;border:none;color:var(--muted);font-size:13px;font-weight:600;padding:0 0 12px;cursor:pointer;">← Back to info</button>
       <button class="btn-start-activity" id="btn-start-activity">Start Activity</button>
       <div class="activity-section" id="activity-section" style="display:none">
         <div class="info-card">
@@ -772,20 +782,23 @@ function handleScan(val) {
   if (val === s.qr) {
     document.getElementById('scan-result-msg').textContent = '✓ Unlocked!';
     document.getElementById('scan-result-msg').style.color = '#4ade80';
-    if (qrControls) {
-      qrControls.stop();
-      qrControls = null;
-    }
-
-closeScanner();
+    if (qrControls) { qrControls.stop(); qrControls = null; }
+    closeScanner();
     setTimeout(() => {
       if (!visited[currentId]) visited[currentId] = 'pending';
       updateProgress();
       const cylObj = markerCylinders.find(o => o.id === currentId);
       if (cylObj) cylObj.cyl.material.uniforms.uVisited.value = 1.0;
-      document.getElementById('qr-prompt').style.display = 'none';
-      document.getElementById('unlocked-content').classList.add('show');
-      fillUnlocked(currentId);
+      // Show discovery popup
+      const popup = document.getElementById('discovery-popup');
+      document.getElementById('disc-title').textContent = s.title;
+      popup.style.display = 'flex';
+      popup.onclick = () => {
+        popup.style.display = 'none';
+        document.getElementById('qr-prompt').style.display = 'none';
+        document.getElementById('unlocked-content').classList.add('show');
+        fillUnlocked(currentId);
+      };
     }, 500);
   } else {
     document.getElementById('scan-result-msg').textContent = '✗ Wrong QR — try another!';
@@ -873,9 +886,22 @@ function updateMarkerThumb(id, url) {
 document.getElementById('btn-camera').onclick  = openCamera;
 document.getElementById('cam-close').onclick   = closeCam;
 document.getElementById('btn-start-activity').onclick = () => {
-  document.getElementById('activity-section').style.display = 'block';
+  document.getElementById('spot-desc').style.display = 'none';
+  document.getElementById('funfact-card').style.display = 'none';
   document.getElementById('btn-start-activity').style.display = 'none';
+  document.getElementById('activity-section').style.display = 'block';
+  document.getElementById('btn-back-info').style.display = 'block';
 };
+
+document.getElementById('btn-back-info').onclick = () => {
+  document.getElementById('spot-desc').style.display = 'block';
+  const s = SPOTS[currentId];
+  if (s && s.funfact) document.getElementById('funfact-card').style.display = 'block';
+  document.getElementById('activity-section').style.display = 'none';
+  document.getElementById('btn-start-activity').style.display = 'block';
+  document.getElementById('btn-back-info').style.display = 'none';
+};
+
 document.getElementById('cam-flip').onclick    = () => { facingMode = facingMode==='environment'?'user':'environment'; startCam(); };
 document.getElementById('shutter').onclick     = capturePhoto;
 document.getElementById('btn-keep').onclick    = keepPhoto;
