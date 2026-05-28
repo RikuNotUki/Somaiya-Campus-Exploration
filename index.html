@@ -794,6 +794,8 @@ function handleScan(val) {
       // Show discovery popup
       const popup = document.getElementById('discovery-popup');
       document.getElementById('disc-title').textContent = s.title;
+      document.getElementById('sheet').classList.remove('open');
+      document.getElementById('sheet-overlay').classList.remove('open');
       popup.style.display = 'flex';
       setTimeout(() => { popup.style.transform = 'translateY(0)'; }, 10);
       popup.onclick = () => {
@@ -802,6 +804,8 @@ function handleScan(val) {
         document.getElementById('qr-prompt').style.display = 'none';
         document.getElementById('unlocked-content').classList.add('show');
         fillUnlocked(currentId);
+        document.getElementById('sheet-overlay').classList.add('open');
+        document.getElementById('sheet').classList.add('open');
       };
     }, 500);
   } else {
