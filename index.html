@@ -529,9 +529,13 @@ loader.load(
     const model = gltf.scene;
     scene.add(model);
 
+    const redMeshNames = ["Flag", "K'J'Somaiya", "3DModel111"];
     model.traverse((child) => {
       if (child.isMesh) {
-        child.material = new THREE.MeshLambertMaterial({ color: 0x807d7a});
+        const isRed = redMeshNames.some(name => child.name.includes(name));
+        child.material = new THREE.MeshLambertMaterial({ 
+          color: isRed ? 0xB7202E : 0x807d7a
+        });
       }
     });
 
