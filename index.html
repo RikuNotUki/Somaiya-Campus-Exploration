@@ -529,7 +529,7 @@ loader.load(
     const model = gltf.scene;
     scene.add(model);
 
-    const redMeshNames = ["Flag", "K'J'Somaiya", "3DModel111"];
+    const redMeshNames = ["Flag", "K'J'Somaiya", "3DModel111","Tree"];
     model.traverse((child) => {
       if (child.isMesh) {
         const isRed = redMeshNames.some(name => child.name.includes(name));
